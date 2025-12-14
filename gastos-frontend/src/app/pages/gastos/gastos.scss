@@ -52,10 +52,22 @@
   justify-content: center;
   align-items: center;
 
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
   .total-value {
     font-size: 2.4rem;
     font-weight: bold;
     color: #4f46e5;
+  }
+
+  .month-label {
+    color: #4f46e5;
+    font-weight: 600;
+    font-size: 1rem;
   }
 }
 
@@ -206,4 +218,3 @@ td {
     transform: rotate(360deg);
   }
 }
-

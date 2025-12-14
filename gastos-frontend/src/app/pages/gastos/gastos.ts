@@ -17,6 +17,7 @@ export class Gastos implements OnInit {
   gastosFiltrados: Gasto[] = [];
   totalGastos: number = 0;
   mesSeleccionado: string = '';
+  mesEtiqueta: string = '';
   loading: boolean = false;
 
   // 👇 NO incluye id
@@ -36,6 +37,7 @@ export class Gastos implements OnInit {
   }
 
   cargarGastos() {
+    // Trae todos los gastos y luego aplica el filtro seleccionado
     this.loading = true;
 
     this.gastosService.getGastos().subscribe(data => {
@@ -47,6 +49,7 @@ export class Gastos implements OnInit {
   }
 
   agregarGasto() {
+    // Guarda un nuevo gasto y reinicia el formulario
     this.loading = true;
 
     this.gastosService.addGasto(this.nuevoGasto).subscribe(() => {
@@ -56,6 +59,12 @@ export class Gastos implements OnInit {
   }
 
   eliminarGasto(gasto: Gasto) {
+    // Confirma antes de eliminar un registro
+    const confirmado = confirm(`¿Seguro que deseas eliminar el gasto "${gasto.concepto}" de $${gasto.monto}?`);
+    if (!confirmado) {
+      return;
+    }
+
     this.loading = true;
 
     this.gastosService.deleteGasto(gasto.id).subscribe(() => {
@@ -64,24 +73,55 @@ export class Gastos implements OnInit {
   }
 
   aplicarFiltro() {
+    // Aplica filtro por mes (si existe) y recalcula totales
     this.loading = true;
 
-    if (!this.mesSeleccionado) {
+    const sinFiltro = !this.mesSeleccionado || this.mesSeleccionado.toLowerCase() === 'all';
+
+    if (sinFiltro) {
       this.gastosFiltrados = [...this.gastos];
     } else {
       this.gastosFiltrados = this.gastos.filter(g =>
         g.fecha.startsWith(this.mesSeleccionado)
       );
     }
+
+    this.actualizarMesEtiqueta();
     this.calcularTotal();
 
     this.loading = false;
   }
 
   calcularTotal() {
+    // Acumula el monto de los gastos filtrados
     this.totalGastos = this.gastosFiltrados.reduce(
       (total, g) => total + Number(g.monto),
       0
     );
+  }
+
+  private actualizarMesEtiqueta() {
+    // Genera la etiqueta legible del mes seleccionado o la limpia si es "all"
+    if (!this.mesSeleccionado || this.mesSeleccionado.toLowerCase() === 'all') {
+      this.mesEtiqueta = '';
+      return;
+    }
+
+    const partes = this.mesSeleccionado.split('-');
+    if (partes.length !== 2) {
+      this.mesEtiqueta = '';
+      return;
+    }
+
+    const [anio, mes] = partes;
+    const fecha = new Date(Number(anio), Number(mes) - 1, 1);
+
+    if (isNaN(fecha.getTime())) {
+      this.mesEtiqueta = '';
+      return;
+    }
+
+    const nombreMes = fecha.toLocaleString('es-ES', { month: 'long' });
+    this.mesEtiqueta = nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1);
   }
 }

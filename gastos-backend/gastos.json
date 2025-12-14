@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "fecha": "2025-12-12",
+        "concepto": "Transporte",
+        "monto": 7
+    },
+    {
+        "fecha": "2025-12-14",
+        "concepto": "Almuerzo",
+        "monto": 5,
+        "id": 3
+    },
+    {
+        "fecha": "2025-12-13",
+        "concepto": "Juegos",
+        "monto": 15.5,
+        "id": 4
+    },
+    {
+        "fecha": "2025-11-01",
+        "concepto": "Varios",
+        "monto": 20.5,
+        "id": 5
+    },
+    {
+        "fecha": "2025-11-02",
+        "concepto": "Vestimenta",
+        "monto": 50,
+        "id": 6
+    },
+    {
+        "fecha": "2025-11-25",
+        "concepto": "Maestría",
+        "monto": 299,
+        "id": 7
+    }
+]

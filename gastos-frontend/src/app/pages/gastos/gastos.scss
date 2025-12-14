@@ -1,0 +1,209 @@
+/* Fondo general */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 2rem 1rem;
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  p {
+    color: #555;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Layout dashboard */
+.dashboard {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Total */
+.total-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .total-value {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #4f46e5;
+  }
+}
+
+/* Formulario */
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+  }
+
+  input {
+    padding: 0.55rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #4f46e5;
+  }
+}
+
+.btn-primary {
+  grid-column: 1 / -1;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+}
+
+/* Tabla */
+.table-card {
+  grid-column: 1 / -1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f3f4f6;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.btn-delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.btn-delete:hover {
+  color: red;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  margin-top: 1rem;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-secondary {
+  margin-top: 0.8rem;
+  background: #e5e7eb;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* Overlay */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Spinner */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e5e7eb;
+  border-top: 5px solid #4f46e5;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

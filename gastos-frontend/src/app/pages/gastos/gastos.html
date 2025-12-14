@@ -1,0 +1,116 @@
+<div class="page">
+  <header class="header">
+    <h1>💰 Control de Gastos</h1>
+    <p>Gestión y seguimiento de gastos personales</p>
+
+  </header>
+
+    <div class="spinner-overlay" *ngIf="loading">
+        <div class="spinner"></div>
+    </div>
+
+  
+
+  <div class="dashboard">
+
+    <!-- Card formulario -->
+    <section class="card">
+      <h2>Nuevo gasto</h2>
+
+      <form (ngSubmit)="agregarGasto()" class="form">
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" [(ngModel)]="nuevoGasto.fecha" name="fecha" required>
+        </div>
+
+        <div class="form-group">
+          <label>Concepto</label>
+          <input
+            type="text"
+            [(ngModel)]="nuevoGasto.concepto"
+            name="concepto"
+            placeholder="Ej: Alimentación"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Monto ($)</label>
+          <input
+            type="number"
+            [(ngModel)]="nuevoGasto.monto"
+            name="monto"
+            min="0"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-primary">
+          ➕ Agregar gasto
+        </button>
+      </form>
+    </section>
+
+    <!-- Card total -->
+    <section class="card total-card">
+      <h2>Total gastado</h2>
+      <div class="total-value">
+        {{ totalGastos | currency:'USD' }}
+      </div>
+    </section>
+
+    <!-- Card tabla -->
+    <section class="card table-card">
+      <h2>Listado de gastos</h2>
+
+      <section class="card">
+        <h2>Filtrar por mes</h2>
+
+        <div class="form-group">
+            <label>Mes</label>
+            <input
+            type="month"
+            [(ngModel)]="mesSeleccionado"
+            (change)="aplicarFiltro()"
+            >
+        </div>
+
+        <button
+            class="btn-secondary"
+            *ngIf="mesSeleccionado"
+            (click)="mesSeleccionado=''; aplicarFiltro()"
+        >
+            Ver todos
+        </button>
+    </section>
+
+      <table *ngIf="gastos.length > 0">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Monto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let gasto of gastosFiltrados">
+                <td>{{ gasto.fecha }}</td>
+                <td>{{ gasto.concepto }}</td>
+                <td>{{ gasto.monto | currency:'USD' }}</td>
+                <td>
+                    <button class="btn-delete" (click)="eliminarGasto(gasto)">
+                    🗑️
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+
+      <p class="empty" *ngIf="gastos.length === 0">
+        No hay gastos registrados.
+      </p>
+    </section>
+
+  </div>
+</div>

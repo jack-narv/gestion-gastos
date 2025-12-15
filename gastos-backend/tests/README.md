@@ -93,7 +93,9 @@ Desde la carpeta gastos-backend, con el entorno virtual activo:
 pytest
 
 Resultado esperado:
+
 ==================== test session starts ====================
+
 collected 3 items
 
 tests/test_gastos.py ...                              [100%]
